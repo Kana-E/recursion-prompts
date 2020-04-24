@@ -34,21 +34,23 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
-   if(array.length === 0){
-       return 0;
-   }else{
-       if(typeof array[0] === 'number'){
-        return array[0] + arraySum(array.slice(1));
-       }else if(Array.isArray(array[0])){
-           if((array[0]).length === 0){
-               return 0;
-           }else{
-               return (array[0][0]) + arraySum((array[0]).slice(1));
-           }
-       }
-   }
-   return array[0] + arraySum(array.slice(1));
-};
+  if(array.length ===0){
+      return 0;
+  }
+
+  var sum = 0
+  for(var i = 0; i < array.length; i++){
+    if(typeof array[i] === 'number'){
+      array[i] + arraySum(array.slice(1));
+      continue;
+    }else if(Array.isArray(array[i])){
+      sum += arraySum(array[i])
+      continue;
+    }
+  }
+
+  return sum;
+}
 
 // 4. Check if a number is even.
 var isEven = function(n) {
@@ -79,7 +81,18 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-};
+  if(x === y || x + 1 === y || x - 1 === y){
+     return [];
+  }else if(x < y){
+     var result = range(x, y - 1);
+     result.push(y - 1);
+     return result
+   }else if(x > y){
+      var result = range(x -1 , y);
+      result.unshift(x - 1);
+      return result;
+   }
+}
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
@@ -87,7 +100,15 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
-};
+
+    if(exp > 0){
+      return base * exponent(base, exp - 1);
+    }else if(exp < 0){
+      return exponent(base, exp + 1) / base
+    }else{
+      return 1;
+    }
+}
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
