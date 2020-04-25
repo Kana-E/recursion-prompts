@@ -168,6 +168,24 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  if(y === 1){
+      return x;
+  }else if(x === 1){
+      return y;
+  }else if(y === -1 && x > 0){
+      return -x;
+  }else if (y === -1 && x < 0){
+      return x;
+  }else if(x === 0 || y === 0){
+      return 0;
+  }else if(x > 0 && y > 0 || x < 0 && y > 0){
+      return x + multiply(x, y - 1);
+  }else if(x > 0 && y < 0){
+      return -x + multiply(x, y + 1);
+  }else if(x < 0 && y < 0){
+      return x + multiply(x, y + 1);
+  }
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
